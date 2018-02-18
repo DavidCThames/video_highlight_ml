@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Highlight ML</title>
+
+    <style>
+        body {
+            padding-top: 60px;
+            margin: 0px;
+            font-family: 'Roboto', sans-serif;
+        }
+        .topbar {
+            position: absolute;
+            left: 0px; top: 0px;
+            width: 100%; height: 50px;
+            box-sizing: border-box;
+            padding: 10px;
+            background-color: #3F51B5;
+            color: white;
+            box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 5px 0 rgba(0,0,0,.23);
+        }
+       .topbar   h1 {
+            margin: 0px;
+            float: left;
+            font-weight: 100;
+        }
+        .topbar nav {
+            float: right;
+            font-weight: 300;
+        }
+        nav a {
+            color: inherit;
+            text-decoration: none;
+            padding-right: 20px;
+        }
+        .container {
+
+        }
+        section {
+            background-color: #fafafa;
+            margin: 0px;
+            padding: 10px;
+        } 
+    </style>
+
+</head>
+
+<body>
+    <section class="topbar">
+        <h1>Highlight ML</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="index.html">About</a>
+            <a href="index.html">Documentation</a>
+        </nav>
+    </section>
+
+    <div class="content">
+        {% block content %}
+            
+        {% endblock %}
+    </div>
+</body>
+
+</html>

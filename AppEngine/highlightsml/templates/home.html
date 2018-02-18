@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <style>
+        .picks {
+            width: calc(100% - 40px); height: 400px;
+            max-width: 1200px;
+            display: flex;
+        }
+
+        .picks > img {
+            height: 100%;
+        }
+    </style>
+
+    <h2>Find Highlights</h2>
+    <section>
+        <h3>Upload Your Own Video File</h3>
+        <form>
+            <label for="upload">Upload Video File</label>
+            <input name="upload" type="url"/>
+            <input type="submit"/>
+        </form>
+    </section>
+
+    <section>
+        <h3>Check Out Our Picks</h3>
+        <div class="pick">
+            <img src="">
+        </div>
+    </section>
+{% endblock %}
