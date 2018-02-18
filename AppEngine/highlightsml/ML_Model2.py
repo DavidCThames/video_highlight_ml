@@ -98,7 +98,7 @@ input_fn = tf.estimator.inputs.numpy_input_fn(
 
 def getBestHighlights(array, time_stamps, numDesired):
 
-    test_images = array
+    test_images = np.array(array)
     # Prepare the input data
     input_fn = tf.estimator.inputs.numpy_input_fn(
         x={'images': test_images}, shuffle=False)
