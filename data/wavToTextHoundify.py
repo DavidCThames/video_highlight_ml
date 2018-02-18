@@ -1,6 +1,7 @@
 from pydub import AudioSegment
 from pydub.utils import make_chunks
 import os, glob
+import json
 
 from multiprocessing.dummy import Pool as ThreadPool
 
@@ -11,6 +12,7 @@ from multiprocessing.dummy import Pool as ThreadPool
 # takes the video file name which should be in the same file as this program
 # takes the segment size in seconds
 # returns a dictionary of numbers to strings
+# also adds this dictionary to the list of ones in the database
 # keys of the dictionary will start at 0 and should increment by
 def getTextFromWav(audio_file_name, split_size):
     myaudio = AudioSegment.from_file(audio_file_name, "wav")
@@ -38,4 +40,24 @@ def getTextFromWav(audio_file_name, split_size):
 
     for filename in glob.glob("./temp*"):
         os.remove(filename)
+
+    my_dict = {}
+    try:
+        with open('dataBase.json') as inFile:
+            try:
+                my_dict = json.load(inFile)
+            except ValueError:
+                my_dict = {}
+    except IOError:
+        my_dict = {}
+
+    my_dict[audio_file_name] = result
+
+    with open("dataBase.json", "w") as jsonFile:
+        json.dump(my_dict, jsonFile)
+
+
     return result
+
+
+getTextFromWav("Game2_Highlights.wav", 8)
