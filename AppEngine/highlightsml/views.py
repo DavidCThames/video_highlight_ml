@@ -44,7 +44,6 @@ def upload(request):
                         with open("./highlightsml/one_time_example.json", "w") as jsonFile:
                                 json.dump(get_numeric.get_from_data(result), jsonFile)
                         os.system("python ./highlightsml/ML_Model2.py")
-                        time.sleep(7)
                         with open("./highlightsml/one_time_example.json", "r") as jsonFile:
                                 result_highlights = json.load(jsonFile)
                         return HttpResponse(json.dumps(result_highlights))

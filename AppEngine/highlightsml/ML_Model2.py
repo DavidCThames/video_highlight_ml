@@ -10,7 +10,7 @@ import json
 
 
 learning_rate = 0.001
-num_steps = 1000
+num_steps = 3000
 batch_size = 128
 display_step = 100
 
@@ -114,7 +114,7 @@ def getBestHighlights(array, time_stamps, numDesired):
     arr = arr.argsort()[-1*numDesired:][::-1]
     times = []
     for i in arr:
-        times.append(time_stamps[i])
+        times.append(str(time_stamps[i]//60) + str(time_stamps[i] % 60))
     with open("./highlightsml/one_time_example.json", "w") as jsonFile:
         json.dump(times, jsonFile)
     return times
