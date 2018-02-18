@@ -58,6 +58,3 @@ def getTextFromWav(audio_file_name, split_size):
 
 
     return result
-
-
-getTextFromWav("Game2_Highlights.wav", 8)
