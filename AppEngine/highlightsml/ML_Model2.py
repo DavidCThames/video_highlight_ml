@@ -114,7 +114,7 @@ def getBestHighlights(array, time_stamps, numDesired):
     arr = arr.argsort()[-1*numDesired:][::-1]
     times = []
     for i in arr:
-        times.append(str(time_stamps[i]//60) + str(time_stamps[i] % 60))
+        times.append(str(time_stamps[i]//60) + ":" + str(time_stamps[i] % 60))
     with open("./highlightsml/one_time_example.json", "w") as jsonFile:
         json.dump(times, jsonFile)
     return times
