@@ -5,6 +5,10 @@ import numpy as np
 import json
 
 
+
+
+
+
 learning_rate = 0.001
 num_steps = 1000
 batch_size = 128
@@ -16,6 +20,17 @@ n_hidden_2 = 30 # 2nd layer number of neurons
 num_input = 3 # MNIST data input (img shape: 28*28)
 num_classes = 2 # MNIST total classes (0-9 digits)
 
+with open("./highlightsml/dataBase_results_x.json", "r") as jsonFile:
+    training_data = json.load(jsonFile)
+
+with open("./highlightsml/dataBase_results_y.json", "r") as jsonFile:
+    labels = json.load(jsonFile)
+training_data = np.array(training_data).astype(float)
+labels = np.array(labels).astype(float)
+
+input_fn = tf.estimator.inputs.numpy_input_fn(
+    x={'images': training_data}, y=labels,
+    batch_size=batch_size, num_epochs=None, shuffle=True)
 
 
 def neural_net(x_dict):
@@ -67,41 +82,21 @@ def model_fn(features, labels, mode):
     return estim_specs
 
 
-def getBestHighlights(array, time_stamps, numDesired):
+model = tf.estimator.Estimator(model_fn)
+model.train(input_fn, steps=num_steps)
 
-    with open("./highlightsml/dataBase_results_x.json", "r") as jsonFile:
-        training_data = json.load(jsonFile)
-
-    with open("./highlightsml/dataBase_results_y.json", "r") as jsonFile:
-        labels = json.load(jsonFile)
-    training_data = np.array(training_data).astype(float)
-    labels = np.array(labels).astype(float)
-
-
-
-    input_fn = tf.estimator.inputs.numpy_input_fn(
+# Evaluate the Model
+# Define the input function for evaluating
+input_fn = tf.estimator.inputs.numpy_input_fn(
     x={'images': training_data}, y=labels,
-    batch_size=batch_size, num_epochs=None, shuffle=True)
+    batch_size=batch_size, shuffle=False)
 
 
-    model = tf.estimator.Estimator(model_fn)
-
-    model.train(input_fn, steps=num_steps)
-
+# Use the Estimator 'evaluate' method
 
 
 
-
-    # Evaluate the Model
-    # Define the input function for evaluating
-    input_fn = tf.estimator.inputs.numpy_input_fn(
-        x={'images': training_data}, y=labels,
-        batch_size=batch_size, shuffle=False)
-    # Use the Estimator 'evaluate' method
-
-
-
-
+def getBestHighlights(array, time_stamps, numDesired):
 
     test_images = array
     # Prepare the input data
@@ -120,4 +115,18 @@ def getBestHighlights(array, time_stamps, numDesired):
     times = []
     for i in arr:
         times.append(time_stamps[i])
+    with open("./highlightsml/one_time_example.json", "w") as jsonFile:
+        json.dump(times, jsonFile)
     return times
+
+
+with open("./highlightsml/one_time_example.json", "r") as jsonFile:
+    data = json.load(jsonFile)
+
+one_time = data[0]
+time_stamps = data[1]
+getBestHighlights(one_time, time_stamps, 10)
+
+
+
+
