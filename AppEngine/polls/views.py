@@ -12,8 +12,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from django.http import HttpResponse
-
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotFound
+from django.shortcuts import render, get_object_or_404
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
+        return render(request, "home.html")
+
+def about(request):
+        return render(request, "about.html")
+
+def doc(request):
+        return render(request, "documentation.html")
+
+def upload(request, positive):
+    #get post data
+    
+    return render(request, "home.html")
+
+def train(request, positive):
+    #get post data
+    return render(request, "home.html")

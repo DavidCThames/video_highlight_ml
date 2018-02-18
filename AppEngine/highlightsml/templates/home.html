@@ -16,9 +16,10 @@
     <h2>Find Highlights</h2>
     <section>
         <h3>Upload Your Own Video File</h3>
-        <form>
-            <label for="upload">Upload Video File</label>
-            <input name="upload" type="url"/>
+        <form action="api-ui/" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label for="filename">Upload Video File</label>
+            <input name="file_upload_temp" type="file"/>
             <input type="submit"/>
         </form>
     </section>

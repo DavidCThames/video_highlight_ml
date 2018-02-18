@@ -12,8 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from django.conf.urls import include, url
 from django.contrib import admin
+from . import views
 
-# from .models import Question
-
-# admin.site.register(Question)
+urlpatterns = [
+    url(r'^$', views.index),
+    url(r'^about', views.about),
+    url(r'^documentation', views.doc),
+    url(r'^api-ui/', views.upload),
+    url(r'^api-training/', views.train),
+]

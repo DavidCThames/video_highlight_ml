@@ -14,6 +14,8 @@
 
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotFound
 from django.shortcuts import render, get_object_or_404
+from wavToTextHoundify import getTextFromWav
+import json
 
 def index(request):
         return render(request, "home.html")
@@ -24,9 +26,23 @@ def about(request):
 def doc(request):
         return render(request, "documentation.html")
 
-def upload(request, positive):
-    #get post data
-    return render(request, "home.html")
+def upload(request):
+        #get post data 
+
+        if request.method == 'POST':
+                if 'file_upload_temp' in request.FILES:
+                        file_upload = request.FILES['file_upload_temp']
+
+                        # os.system("ffmpeg -i audio.wav -ac 1 mono.wav")
+
+                        with open("temp" + ".wav", "w") as local_file: #audio_file_name.rpartition("/")[2]
+                                local_file.write(file_upload.read())
+                        result = getTextFromWav("temp.wav", 8, False)
+                        return HttpResponse(json.dumps(result))
+                else:
+                        return HttpResponse(json.dumps(request.FILES))
+        else:
+                return HttpResponse("Error: No POST Request")
 
 def train(request, positive):
     #get post data

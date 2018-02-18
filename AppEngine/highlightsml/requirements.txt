@@ -1,8 +1,7 @@
-Django<2.0.0,>=1.11.8
 backports.functools-lru-cache==1.4
 cycler==0.10.0
 matplotlib==2.1.0
-numpy==1.11.3
+numpy==1.11.3+mkl
 pydub==0.20.0
 pyparsing==2.2.0
 python-dateutil==2.6.1

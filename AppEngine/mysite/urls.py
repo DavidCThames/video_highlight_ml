@@ -17,6 +17,7 @@ from django.contrib import admin
 from . import views
 
 urlpatterns = [
-    url(r'^$', include('highlightsml.urls')),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^$', include('highlightsml.urls')),
+    url(r'^api/', include('highlightsml.urls')),
 ]
