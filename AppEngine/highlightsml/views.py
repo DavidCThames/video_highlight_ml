@@ -16,6 +16,7 @@ from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotFound
 from django.shortcuts import render, get_object_or_404
 from wavToTextHoundify import getTextFromWav
 import json
+import get_numeric
 
 def index(request):
         return render(request, "home.html")
@@ -38,7 +39,8 @@ def upload(request):
                         with open("temp" + ".wav", "w") as local_file: #audio_file_name.rpartition("/")[2]
                                 local_file.write(file_upload.read())
                         result = getTextFromWav("temp.wav", 8, False)
-                        return HttpResponse(json.dumps(result))
+                        result_numeric = get_numeric.get_from_data(result)
+                        return HttpResponse(json.dumps(result_numeric))
                 else:
                         return HttpResponse(json.dumps(request.FILES))
         else:
