@@ -17,7 +17,7 @@ from django.shortcuts import render, get_object_or_404
 from wavToTextHoundify import getTextFromWav
 import json
 import get_numeric
-import ML_Model2
+import time
 
 def index(request):
         return render(request, "home.html")
@@ -40,8 +40,12 @@ def upload(request):
                         with open("temp" + ".wav", "w") as local_file: #audio_file_name.rpartition("/")[2]
                                 local_file.write(file_upload.read())
                         result = getTextFromWav("temp.wav", 8, False)
-                        result_numeric = get_numeric.get_from_data(result)
-                        result_highlights = ML_Model2.getBestHighlights(result_numeric[0], result_numeric[1], 5)
+                        with open("one_time_example.json", "w") as jsonFile:
+                                json.dump(get_numeric.get_from_data(result))
+                        os.system("python ML_Model2")
+                        time.sleep(7)
+                        with open("one_time_example.json", "r") as jsonFile:
+                                result_highlights = json.load(jsonFile)
                         return HttpResponse(json.dumps(result_highlights))
                 else:
                         return HttpResponse(json.dumps(request.FILES))
