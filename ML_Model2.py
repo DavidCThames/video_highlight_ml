@@ -6,7 +6,7 @@ import json
 
 
 learning_rate = 0.001
-num_steps = 10
+num_steps = 1000
 batch_size = 128
 display_step = 100
 
@@ -110,7 +110,7 @@ def getBestHighlights(array, time_stamps, numDesired):
     for i in preds:
         temp_probabilitites.append(i["probabilities"])
     for i in temp_probabilitites:
-        probabilities.append(i[0])
+        probabilities.append(i[1])
     arr = np.array(probabilities)
     arr = arr.argsort()[-1*numDesired:][::-1]
     times = []
