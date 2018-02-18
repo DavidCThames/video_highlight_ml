@@ -99,14 +99,11 @@ input_fn = tf.estimator.inputs.numpy_input_fn(
 
 
 def getBestHighlights(array, time_stamps, numDesired):
-    array = training_data
     test_images = array
     # Prepare the input data
     input_fn = tf.estimator.inputs.numpy_input_fn(
         x={'images': test_images}, shuffle=False)
     # Use the model to predict the images class
-
-
     preds = list(model.predict(input_fn))
     temp_probabilitites = []
     probabilities = []
@@ -119,3 +116,4 @@ def getBestHighlights(array, time_stamps, numDesired):
     times = []
     for i in arr:
         times.append(time_stamps[i])
+    return times
