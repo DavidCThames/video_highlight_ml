@@ -29,7 +29,10 @@ def run_game(data, quality):
             )
 
             sentiment = response.document_sentiment
-            x.append([sentiment.score, sentiment.magnitude])
+
+            sentance_length = len(sentance.rsplit(" "))
+
+            x.append([sentiment.score, sentiment.magnitude, sentance_length])
             y.append(quality)
             # print json.dumps([sentiment.score, sentiment.magnitude])
             timer.sleep(0.11)
